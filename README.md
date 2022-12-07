@@ -4,14 +4,19 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ## Vite
 
-Represents a quick, easy-to-use environment that doesn't require long builds to get started with a project. Framework agnostic - works well with Tailwind / Windi too -
+Represents a quick, easy-to-use environment that doesn't require long builds to get started with a project.
+
+Framework agnostic - works well with Tailwind / Windi too -
 [Vite Documentation](https://vitejs.dev/).
 
 ## Windi
 
 20 to 100x quicker than native Tailwind and framework agnostic
+
 [Integration with Vite](https://windicss.org/integrations/vite.html)
+
 [Configuration Options](https://windicss.org/guide/configuration.html)
+
 [Plugins](https://tailwindcss.com/docs/plugins)
 
 ## Recommended IDE Setup
@@ -26,4 +31,3 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
-# windi-atomic-generation
