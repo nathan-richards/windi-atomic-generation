@@ -1,21 +1,4 @@
-export function generateKey(key: string) {
-  const stripRegex = /[^0-9^a-z^A-Z]/g;
-
-  function create(key: string): string {
-    const keyArr = key
-      .split(" ")
-      .map((x) => strip(x))
-      .filter((a) => a);
-
-    return keyArr.join("-");
-  }
-
-  function strip(key: string): string {
-    return key.replace(stripRegex, "");
-  }
-
-  return create(key);
-}
+import keyHelpers from "./scripts/keyHelpers";
 
 /* 
 Points to design-tokens.tokens.json
