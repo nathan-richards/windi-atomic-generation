@@ -4,29 +4,36 @@ import keyHelpers from "../scripts/keyHelpers";
 describe("key", () => {
   const methods = keyHelpers();
 
-  test("Check if special characters are stripped", () => {
-    const results = [
-      { input: "grid desktop", output: "griddesktop" },
-      { input: "test", output: "test" },
-      { input: "custom-grid", output: "customgrid" },
-      { input: "600 -> 500 (90deg)", output: "60050090deg" },
-    ];
+  const results = [
+    {
+      input: "grid desktop",
+      concatOutput: "griddesktop",
+      finalOutput: "grid-desktop",
+    },
+    { input: "test", concatOutput: "test", finalOutput: "test" },
+    {
+      input: "custom-grid",
+      concatOutput: "customgrid",
+      finalOutput: "custom-grid",
+    },
+    {
+      input: "600 -> 500 (90deg)",
+      concatOutput: "60050090deg",
+      finalOutput: "600-500-90deg",
+    },
+  ];
 
-    results.forEach((x) => {
-      expect(methods.strip(x.input)).toBe(x.output);
-    });
-  });
+  test.each(results)(
+    "Check $input is concatinated to $concatOutput",
+    ({ input, concatOutput }) => {
+      expect(methods.strip(input)).toBe(concatOutput);
+    }
+  );
 
-  test("Check if hyphenated key names are generated", () => {
-    const results = [
-      { input: "grid desktop", output: "grid-desktop" },
-      { input: "test", output: "test" },
-      { input: "custom-grid", output: "custom-grid" },
-      { input: "600 -> 500 (90deg)", output: "600-500-90deg" },
-    ];
-
-    results.forEach((x) => {
-      expect(methods.create(x.input)).toBe(x.output);
-    });
-  });
+  test.each(results)(
+    "Check $input is hyphenated to $finalOutput",
+    ({ input, finalOutput }) => {
+      expect(methods.create(input)).toBe(finalOutput);
+    }
+  );
 });
