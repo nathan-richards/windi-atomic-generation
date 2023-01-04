@@ -1,5 +1,44 @@
 import keyHelpers from "./scripts/keyHelpers";
 
+const fileURL =
+  "src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
+
+const theme = {
+  theme: {
+    extend: {},
+  },
+};
+let properties: unknown;
+
+const fetchJson = async () => {
+  await fetch(fileURL)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      if (data) {
+        properties = data;
+      }
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const build = async () => {
+  await fetchJson();
+
+  if (properties != null) {
+    console.log("props", properties);
+  }
+};
+
+export { build };
+
 /* 
 Points to design-tokens.tokens.json
 Runs through each object and outputs the theme extend config:
