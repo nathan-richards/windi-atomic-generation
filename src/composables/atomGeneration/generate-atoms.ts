@@ -34,13 +34,17 @@ const build = async () => {
 
   if (properties != null) {
     console.log("props", properties);
+
+    for (const [key, value] of Object.entries(properties)) {
+      console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+    }
   }
 };
 
 export { build };
 
 /* 
-Points to design-tokens.tokens.json
+-- Points to design-tokens.tokens.json
 Runs through each object and outputs the theme extend config:
 Top level keys to ignore atm:
    - "grid" (tailwind takes care of this primarily)

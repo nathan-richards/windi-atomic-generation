@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import keyHelpers from "../scripts/keyHelpers";
 
-describe("key", () => {
+describe("Key generation", () => {
   const methods = keyHelpers();
 
   const results = [
