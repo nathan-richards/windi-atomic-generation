@@ -1,8 +1,17 @@
 import { describe, expect, test } from "vitest";
-import keyHelpers from "../scripts/keyHelpers";
+import tokens from "../files/test.tokens.json" assert { type: "json" };
+import { keyHelpers } from "../scripts/keyHelpers";
 
 describe("Key generation with stripping characters and adding hyphens", () => {
   const methods = keyHelpers();
+
+  const keysToRemove = [
+    "avatar-user-square",
+    "blendMode",
+    "description",
+    "extensions",
+    "type",
+  ];
 
   const results = [
     {
@@ -34,6 +43,15 @@ describe("Key generation with stripping characters and adding hyphens", () => {
     "Check $input is hyphenated to $finalOutput",
     ({ input, finalOutput }) => {
       expect(methods.create(input)).toBe(finalOutput);
+    }
+  );
+
+  test.each(keysToRemove)(
+    "Check keys ($keysToRemove) aren't in the object",
+    (key) => {
+      expect(methods.remove(tokens, keysToRemove)).not.toEqual(
+        expect.objectContaining({ [key]: expect.anything() })
+      );
     }
   );
 });
