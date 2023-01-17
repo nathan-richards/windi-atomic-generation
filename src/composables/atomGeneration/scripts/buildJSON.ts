@@ -1,11 +1,11 @@
-import { f } from "vitest/dist/index-5aad25c1";
+import tokens from "../files/test.tokens.json" assert { type: "json" };
 
 interface IJSONHelpers {
   create(object: Object): Object;
 }
 
 // type needs to be the multi-tiered interface
-export default function JSONHelpers(object: Object): IJSONHelpers {
+export function buildJSON(object: Object): IJSONHelpers {
   const keysToRemove = ["blendMode", "description", "extensions", "type"];
 
   const publicAPI = {
