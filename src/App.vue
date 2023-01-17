@@ -3,8 +3,8 @@ import { onMounted } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import { build } from "./composables/atomGeneration/generate-atoms";
 
-onMounted(() => {
-  build();
+onMounted(async () => {
+  console.log(await build());
 });
 </script>
 

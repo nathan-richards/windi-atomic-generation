@@ -1,13 +1,8 @@
-import keyHelpers from "./scripts/keyHelpers";
+import { keyHelpers } from "./scripts/keyHelpers";
 
 const fileURL =
   "src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
 
-const newTheme = {
-  theme: {
-    extend: {},
-  },
-};
 let properties: unknown;
 
 const fetchJson = async () => {
@@ -32,34 +27,46 @@ const fetchJson = async () => {
 // create method for color key
 // make recursive]
 
-const mapKeyValues = (object: Object) => {
-  // recursive function
-  if (Object.entries(object).length > 0) {
-    mapKeyValues();
-  } else {
-    return;
-  }
-};
+// const mapKeyValues = (object: Object) => {
+//   // recursive function
+//   if (Object.entries(object).length > 0) {
+//     mapKeyValues();
+//   } else {
+//     return;
+//   }
+// };
 
 const keyMethods = keyHelpers();
 
 const build = async () => {
+  const newTheme = {
+    theme: {
+      extend: {},
+    },
+  };
+
+  const keysToRemove = [
+    "avatar-user-square",
+    "blendMode",
+    "description",
+    "extensions",
+    "type",
+  ];
+
   await fetchJson();
 
   if (properties != null) {
-    console.log("props", properties);
-
     for (const [key, value] of Object.entries(properties)) {
       if (key === "color") {
         newTheme.theme.extend.color = {};
 
         for (const [colorKey, colorValue] of Object.entries(value)) {
           const subKey = keyMethods.create(colorKey);
-          console.log(colorKey, subKey);
+
           newTheme.theme.extend.color[subKey] = colorValue;
         }
-        console.log(newTheme);
-        return;
+
+        return keyMethods.remove(newTheme, keysToRemove);
       }
     }
   }

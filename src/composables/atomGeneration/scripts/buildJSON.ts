@@ -1,41 +1,36 @@
-import tokens from "../files/test.tokens.json" assert { type: "json" };
-
-interface IJSONHelpers {
-  create(object: Object): Object;
-}
+import { keyHelpers } from "../scripts/keyHelpers";
 
 // type needs to be the multi-tiered interface
-export function buildJSON(object: Object): IJSONHelpers {
+export function buildJSON(object: Object): Object {
+  const keyMethods = keyHelpers();
+
   const keysToRemove = ["blendMode", "description", "extensions", "type"];
-
-  const publicAPI = {
-    create,
-  };
-
-  function removeKeys(object: Object): Object {
-    for (let i = 0; i < keysToRemove.length; i++) {
-      delete object[keysToRemove[i]];
-    }
-    return object;
-  }
 
   function stripXChars(str: string, amount: number): string {
     return str.slice(0, -amount);
   }
 
   function create(object: Object) {
-    // recursive function
-    // loop through key value
-    // create parent key > subKey
-    // map value - look for value
-    // if value doesn't exist, add as tier
-    // else assign value
-    // if value is not object assign and end
-    // else format value based on type (unique methods)
+    // Get all keys
+
+    // Use a method for each key
+
+    // Find how many layers the nested objects go til they hit “value”
+
+    // Loop through nested tiers of object
+
+    // Combine the key level “value” sits on and -1 to form the “class name”
+
+    // If value is not object, use direct value
+
+    // If value is object, use sub values to build up correct value
+
+    // If color, then supply color methods
+    // If font, then supply font methods
 
     let prevObject = {};
     const newObject = {};
-    let objectToFormat = removeKeys(object);
+    let objectToFormat = keyMethods.remove(object, keysToRemove);
     let iterations = 0;
 
     for (const [key, value] of Object.entries(objectToFormat)) {
@@ -58,7 +53,6 @@ export function buildJSON(object: Object): IJSONHelpers {
 
         for (const [colorKey, colorValue] of Object.entries(value)) {
           const subKey = keyMethods.create(colorKey);
-          console.log(colorKey, subKey);
           newTheme.theme.extend.color[subKey] = colorValue;
         }
         console.log(newTheme);
@@ -76,5 +70,26 @@ export function buildJSON(object: Object): IJSONHelpers {
     }
   }
 
-  return publicAPI;
+  function build(): Object {
+    // Remove unwanted keys
+    keyMethods.remove(object, keysToRemove);
+    // Get all keys
+    const parentKeys = Object.keys(object);
+
+    return keys;
+    // Use a loop method for each parent key
+
+    // Find how many layers the nested objects go til they hit “value”
+    // Loop through nested tiers of object
+    // Combine the key level “value” sits on and -1 to form the “class name”
+    // If value is not object, use direct value
+    // If value is object, use sub values to build up correct value
+
+    // If color, then supply color methods
+    // If font, then supply font methods
+
+    return {};
+  }
+
+  return build();
 }
