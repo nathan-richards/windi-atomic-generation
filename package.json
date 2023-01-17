@@ -12,6 +12,8 @@
     "build-atoms": "npm run ./scripts/generate-atoms.ts"
   },
   "dependencies": {
+    "@vue/test-utils": "^2.2.7",
+    "node-fetch": "^3.3.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {

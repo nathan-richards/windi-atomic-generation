@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import keyHelpers from "../scripts/keyHelpers";
 
-describe("Key generation", () => {
+describe("Key generation with stripping characters and adding hyphens", () => {
   const methods = keyHelpers();
 
   const results = [

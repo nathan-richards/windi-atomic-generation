@@ -3,7 +3,7 @@ import keyHelpers from "./scripts/keyHelpers";
 const fileURL =
   "src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
 
-const theme = {
+const newTheme = {
   theme: {
     extend: {},
   },
@@ -28,6 +28,20 @@ const fetchJson = async () => {
       console.log(error);
     });
 };
+// create TS interface for multi-tiered key
+// create method for color key
+// make recursive]
+
+const mapKeyValues = (object: Object) => {
+  // recursive function
+  if (Object.entries(object).length > 0) {
+    mapKeyValues();
+  } else {
+    return;
+  }
+};
+
+const keyMethods = keyHelpers();
 
 const build = async () => {
   await fetchJson();
@@ -36,7 +50,17 @@ const build = async () => {
     console.log("props", properties);
 
     for (const [key, value] of Object.entries(properties)) {
-      console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+      if (key === "color") {
+        newTheme.theme.extend.color = {};
+
+        for (const [colorKey, colorValue] of Object.entries(value)) {
+          const subKey = keyMethods.create(colorKey);
+          console.log(colorKey, subKey);
+          newTheme.theme.extend.color[subKey] = colorValue;
+        }
+        console.log(newTheme);
+        return;
+      }
     }
   }
 };
