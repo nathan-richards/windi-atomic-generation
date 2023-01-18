@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
-import { build } from "./composables/atomGeneration/generate-atoms";
+import { fetchJSON } from "./composables/atomGeneration/scripts/fetchJSON";
 import { buildJSON } from "./composables/atomGeneration/scripts/buildJSON";
 
+const fileURL =
+  "./src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
+
 onMounted(async () => {
-  console.log(await build());
-  const json = await build();
-  if (json) {
-    console.log(buildJSON(json.theme.extend));
+  const json = await fetchJSON(fileURL);
+  if (typeof json === "object" && json != null) {
+    console.log(buildJSON(json));
   }
 });
 </script>

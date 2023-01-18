@@ -1,49 +1,8 @@
 import { keyValueHelpers } from "./scripts/keyValueHelpers";
 import { fetchJSON } from "./scripts/fetchJSON";
 
-const fileURL =
-  "./src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
-
-let properties: unknown;
-
-// const fetchJson = async () => {
-//   await fetch(fileURL)
-//     .then((res) => {
-//       if (!res.ok) {
-//         throw new Error("Something went wrong");
-//       }
-//       return res.json();
-//     })
-//     .then((data) => {
-//       if (data) {
-//         properties = data;
-//       }
-//       return data;
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
-// create TS interface for multi-tiered key
-
-// const mapKeyValues = (object: Object) => {
-//   // recursive function
-//   if (Object.entries(object).length > 0) {
-//     mapKeyValues();
-//   } else {
-//     return;
-//   }
-// };
-
-const keyMethods = keyValueHelpers();
-
 const build = async () => {
-  const newTheme = {
-    theme: {
-      extend: {},
-    },
-  };
+  const newTheme = {};
 
   const keysToRemove = [
     "avatar-user-square",
@@ -53,7 +12,7 @@ const build = async () => {
     "type",
   ];
 
-  properties = await fetchJSON(fileURL);
+  const properties = await fetchJSON(fileURL);
 
   if (properties) {
     return properties;
@@ -62,12 +21,12 @@ const build = async () => {
   if (properties != null) {
     for (const [key, value] of Object.entries(properties)) {
       if (key === "color") {
-        newTheme.theme.extend.color = {};
+        newTheme.color = {};
 
         for (const [colorKey, colorValue] of Object.entries(value)) {
           const subKey = keyMethods.create(colorKey);
 
-          newTheme.theme.extend.color[subKey] = colorValue;
+          newTheme.color[subKey] = colorValue;
         }
 
         return keyMethods.remove(newTheme, keysToRemove);
