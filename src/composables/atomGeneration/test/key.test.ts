@@ -20,6 +20,11 @@ describe("Key generation with stripping characters and adding hyphens", () => {
       concatOutput: "griddesktop",
       finalOutput: "grid-desktop",
     },
+    {
+      input: "grid.desktop",
+      concatOutput: "griddesktop",
+      finalOutput: "grid-desktop",
+    },
     { input: "test", concatOutput: "test", finalOutput: "test" },
     {
       input: "custom-grid",
