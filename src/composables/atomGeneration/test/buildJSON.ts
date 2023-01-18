@@ -1,7 +1,3 @@
-/* 
-use concurrent
-run fetch then buaild
-*/
 import { describe, expect, test } from "vitest";
 import { keyValueHelpers } from "../scripts/keyValueHelpers";
 import tokens from "../files/test.tokens.json" assert { type: "json" };

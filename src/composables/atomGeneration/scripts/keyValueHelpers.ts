@@ -1,6 +1,5 @@
 interface IkeyValueHelpers {
   create(key: string): string;
-  find(obj: Object, key: string): Object | null;
   get(obj: Object): Array<string>;
   remove(obj: Object, keys: Array<string>): Object;
   strip(key: string): string;
@@ -11,7 +10,6 @@ export function keyValueHelpers(): IkeyValueHelpers {
 
   const publicAPI = {
     create,
-    find,
     get,
     remove,
     strip,
@@ -37,18 +35,6 @@ export function keyValueHelpers(): IkeyValueHelpers {
       output.push(key);
     }
     return output;
-  }
-
-  // Find the key with value in the object
-  function find(obj: Object, key: string): Object | null {
-    let foundObj = null;
-    JSON.stringify(obj, (_, nestedValue) => {
-      if (nestedValue && nestedValue[key] === key) {
-        foundObj = nestedValue;
-      }
-      return nestedValue;
-    });
-    return foundObj;
   }
 
   // Removes keys from an object

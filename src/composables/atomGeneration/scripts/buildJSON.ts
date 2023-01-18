@@ -19,9 +19,10 @@ export function buildJSON(object: Object): Object {
 
   function build(): Object {
     // Remove unwanted keys
-    keyMethods.remove(object, keysToRemove);
-    // Get all keys
-    const parentKeys = keyMethods.get(object);
+    const strippedObject = keyMethods.remove(object, keysToRemove);
+
+    // Get all parent keys
+    const parentKeys = keyMethods.get(strippedObject);
 
     return parentKeys;
     // Use a loop method for each parent key
