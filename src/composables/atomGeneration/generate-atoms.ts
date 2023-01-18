@@ -1,31 +1,31 @@
-import { keyHelpers } from "./scripts/keyHelpers";
+import { keyValueHelpers } from "./scripts/keyValueHelpers";
+import { fetchJSON } from "./scripts/fetchJSON";
 
 const fileURL =
-  "src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
+  "./src/composables/atomGeneration/files/untitled-design-tokens.tokens.json";
 
 let properties: unknown;
 
-const fetchJson = async () => {
-  await fetch(fileURL)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Something went wrong");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      if (data) {
-        properties = data;
-      }
-      return data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+// const fetchJson = async () => {
+//   await fetch(fileURL)
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw new Error("Something went wrong");
+//       }
+//       return res.json();
+//     })
+//     .then((data) => {
+//       if (data) {
+//         properties = data;
+//       }
+//       return data;
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
+
 // create TS interface for multi-tiered key
-// create method for color key
-// make recursive]
 
 // const mapKeyValues = (object: Object) => {
 //   // recursive function
@@ -36,7 +36,7 @@ const fetchJson = async () => {
 //   }
 // };
 
-const keyMethods = keyHelpers();
+const keyMethods = keyValueHelpers();
 
 const build = async () => {
   const newTheme = {
@@ -53,7 +53,11 @@ const build = async () => {
     "type",
   ];
 
-  await fetchJson();
+  properties = await fetchJSON(fileURL);
+
+  if (properties) {
+    return properties;
+  }
 
   if (properties != null) {
     for (const [key, value] of Object.entries(properties)) {

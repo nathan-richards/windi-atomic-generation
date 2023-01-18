@@ -1,14 +1,18 @@
-interface IKeyHelpers {
+interface IkeyValueHelpers {
   create(key: string): string;
+  find(obj: Object, key: string): Object | null;
+  get(obj: Object): Array<string>;
   remove(obj: Object, keys: Array<string>): Object;
   strip(key: string): string;
 }
 
-export function keyHelpers(): IKeyHelpers {
+export function keyValueHelpers(): IkeyValueHelpers {
   const stripRegex = /[^0-9^a-z^A-Z]/g;
 
   const publicAPI = {
     create,
+    find,
+    get,
     remove,
     strip,
   };
@@ -23,6 +27,28 @@ export function keyHelpers(): IKeyHelpers {
       .filter((a) => a);
 
     return keyArr.join("-");
+  }
+
+  // Get the top level keys, from the object level provided
+  function get(obj: Object): Array<string> {
+    const output = [];
+
+    for (const [key] of Object.entries(obj)) {
+      output.push(key);
+    }
+    return output;
+  }
+
+  // Find the key with value in the object
+  function find(obj: Object, key: string): Object | null {
+    let foundObj = null;
+    JSON.stringify(obj, (_, nestedValue) => {
+      if (nestedValue && nestedValue[key] === key) {
+        foundObj = nestedValue;
+      }
+      return nestedValue;
+    });
+    return foundObj;
   }
 
   // Removes keys from an object

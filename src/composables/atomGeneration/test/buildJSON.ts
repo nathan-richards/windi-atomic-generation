@@ -3,12 +3,12 @@ use concurrent
 run fetch then buaild
 */
 import { describe, expect, test } from "vitest";
-import { keyHelpers } from "../scripts/keyHelpers";
+import { keyValueHelpers } from "../scripts/keyValueHelpers";
 import tokens from "../files/test.tokens.json" assert { type: "json" };
 import { buildJSON } from "../scripts/buildJSON";
 
 describe("Testing building the multi-tiered object", () => {
-  const keyMethods = keyHelpers();
+  const keyMethods = keyValueHelpers();
 
   const input = buildJSON(tokens);
 

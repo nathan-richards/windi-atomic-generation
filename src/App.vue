@@ -2,9 +2,14 @@
 import { onMounted } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import { build } from "./composables/atomGeneration/generate-atoms";
+import { buildJSON } from "./composables/atomGeneration/scripts/buildJSON";
 
 onMounted(async () => {
   console.log(await build());
+  const json = await build();
+  if (json) {
+    console.log(buildJSON(json.theme.extend));
+  }
 });
 </script>
 

@@ -1,6 +1,6 @@
 import { flushPromises } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
-import fetch from "node-fetch";
+import { fetchJSON } from "../scripts/fetchJSON";
 
 describe("To correctly fetch the JSON data", () => {
   test("Check contents of $url is returned as $output", async () => {
@@ -9,7 +9,8 @@ describe("To correctly fetch the JSON data", () => {
 
     await flushPromises();
 
-    const input = await (await fetch(url)).json();
+    //const input = await (await fetch(url)).json();
+    const input = await fetchJSON(url);
 
     expect(input).toHaveProperty("color");
     expect(input).toHaveProperty("color.base");
